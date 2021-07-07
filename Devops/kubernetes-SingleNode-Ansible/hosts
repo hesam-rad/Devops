@@ -1,0 +1,7 @@
+[masters]
+master node_name=master ansible_host=116.203.42.208 kubernetes_role="master"
+
+[workers]
+worker1 node_name=worker1 ansible_host=162.55.209.178 kubernetes_role="node"
+worker2 node_name=worker2 ansible_host=162.55.209.179 kubernetes_role="node"
+worker3 node_name=worker3 ansible_host=159.69.193.188 kubernetes_role="node"

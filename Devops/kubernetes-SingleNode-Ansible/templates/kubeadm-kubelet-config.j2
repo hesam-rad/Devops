@@ -1,0 +1,29 @@
+---
+apiVersion: kubeadm.k8s.io/v1beta2
+{{ kubeadm_config_token_configuration | to_nice_yaml(indent=0, width=1337) }}
+
+kind: InitConfiguration
+{{ kubernetes_config_init_configuration | to_nice_yaml(indent=0, width=1337) }}
+---
+{{ kubeadm_apiServer_configuration | to_nice_yaml(indent=0, width=1337) }}
+
+apiVersion: kubeadm.k8s.io/v1beta2
+certificatesDir: {{ certificates_directory }}
+clusterName: {{ cluster_name }}
+controllerManager: {{ controller_manager }}
+{{ kubeadm_dns_configuration | to_nice_yaml(indent=0, width=1337) }}
+{{ kubeadm_etcd_configuration | to_nice_yaml(indent=0, width=1337) }}
+kubernetesVersion: {{ kubernetes_version }}
+imageRepository: {{ kubeImageRepository }}
+
+kind: ClusterConfiguration
+controlPlaneEndpoint: {{ master_address }}:{{ apiPort }}
+{{ kubernetes_config_cluster_configuration | to_nice_yaml(indent=0, width=1337)}}
+
+
+---
+{% if kubernetes_config_kubelet_configuration|length > 0 %}
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+{{ kubernetes_config_kubelet_configuration | to_nice_yaml(indent=0, width=1337) }}
+{% endif %}
